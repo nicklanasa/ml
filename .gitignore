@@ -1,0 +1,5 @@
+.DS_Store
+.ipynb_checkpoints/test-checkpoint.ipynb
+.vscode/settings.json
+.pytest_cache/**
+**/__pycache__
