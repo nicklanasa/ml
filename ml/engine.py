@@ -14,7 +14,6 @@ def train_test_evaluate(dataset, algorithm, split=0.60, *args):
   predicted = algorithm(train, test_set, *args)
   actual = [row[-1] for row in test]
   accuracy = accuracy_metric(actual, predicted)
-  print(accuracy)
   return accuracy
 
 # Evaluate an algorithm using a cross-validation split
@@ -48,7 +47,6 @@ def simple_linear_regression_evaluate(dataset, split=0.6):
     row_copy[-1] = None
     test_set.append(row_copy)
   predicted = simple_linear_regression(dataset, test_set)
-  print(predicted)
   actual = [row[-1] for row in dataset]
   rmse = rmse_metric(actual, predicted)
   return rmse
