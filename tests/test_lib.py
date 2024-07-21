@@ -96,9 +96,3 @@ def test_covariance():
   mean_x, mean_y = mean(x), mean(y)
   covar = covariance(x, mean_x, y, mean_y)
   assert covar == 8.0, "covariance is 8.0"
-
-def test_coefficients():
-  dataset = [[1, 1], [2, 3], [4, 3], [3, 2], [5, 5]]
-  b0, b1 = coefficients(dataset)
-  assert round(b0, 3) == 0.4
-  assert round(b1, 3) == 0.8

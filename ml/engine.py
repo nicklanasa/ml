@@ -5,6 +5,19 @@ from ml.models import simple_linear_regression
 
 # Evaluate an algorithm using a train/test split
 def train_test_evaluate(dataset, algorithm, split=0.60, *args):
+    """
+    Trains a machine learning algorithm on a dataset, splits it into training and testing sets,
+    evaluates the algorithm's performance on the testing set, and returns the accuracy metric.
+
+    Parameters:
+    - dataset: The dataset to train and evaluate the algorithm on.
+    - algorithm: The machine learning algorithm to use for training and evaluation.
+    - split: The ratio of the dataset to use for training. Default is 0.60.
+    - *args: Additional arguments to pass to the algorithm.
+
+    Returns:
+    - accuracy: The accuracy metric of the algorithm on the testing set.
+    """
     train, test = train_test_split(dataset, split)
     test_set = list()
     for row in test:
@@ -18,18 +31,26 @@ def train_test_evaluate(dataset, algorithm, split=0.60, *args):
 
 # Evaluate an algorithm using a cross-validation split
 def cross_val_evaluate(dataset, algorithm, n_folds, *args):
+    """
+    Perform cross-validation evaluation on a dataset using a given algorithm.
+
+    Parameters:
+    - dataset (list): The dataset to be used for cross-validation.
+    - algorithm (function): The algorithm to be evaluated.
+    - n_folds (int): The number of folds to use for cross-validation.
+    - *args: Additional arguments to be passed to the algorithm.
+
+    Returns:
+    - scores (list): A list of accuracy scores for each fold.
+
+    """
     folds = cross_validation_split(dataset, n_folds)
-    # print((len(folds[0][0])))
     scores = list()
     for fold in folds:
-        # create copy of list of folds
         train_set = list(folds)
-        # remove the held out fold
         train_set.remove(fold)
-        # flatten to one long list of rows to match algo expected of training data
         train_set = sum(train_set, [])
         test_set = list()
-        # create test set
         for row in fold:
             row_copy = list(row)
             test_set.append(row_copy)
@@ -41,6 +62,16 @@ def cross_val_evaluate(dataset, algorithm, n_folds, *args):
     return scores
 
 def simple_linear_regression_evaluate(dataset, split=0.6):
+    """
+    Evaluates the performance of a simple linear regression model on a dataset.
+
+    Args:
+        dataset (list): The dataset to evaluate the model on.
+        split (float, optional): The ratio of training set to test set. Defaults to 0.6.
+
+    Returns:
+        float: The root mean squared error (RMSE) of the model's predictions.
+    """
     test_set = list()
     for row in dataset:
         row_copy = list(row)

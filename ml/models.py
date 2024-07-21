@@ -16,11 +16,11 @@ def random_algorithm(train, test):
 # counts the occurences of the predictions
 # and outputs a list with the most 
 def zero_rule_algorithm_classification(train, test):
-    output_values = [row[-1] for row in train]
-    # produces the class value with the most occurences
-    prediction = max(set(output_values), key=output_values.count)
-    predicted = [prediction for i in range(len(test))]
-    return predicted
+  output_values = [row[-1] for row in train]
+  # produces the class value with the most occurrences
+  prediction = max(set(output_values), key=output_values.count)
+  predicted = [prediction for i in range(len(test))]
+  return predicted
 
 # zero rule algorithm for regression
 def zero_rule_algorithm_regression(train, test):
