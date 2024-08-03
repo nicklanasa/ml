@@ -277,3 +277,45 @@ def coefficients(dataset):
     b1 = covariance(x, x_mean, y, y_mean) / variance(x, x_mean)
     b0 = y_mean - b1 * x_mean
     return [b0, b1]
+
+def predict(row, coefficients):
+    """
+    Make a prediction with the linear regression model.
+
+    Parameters:
+        row (list): A list of values representing the input data.
+        coefficients (list): A list of coefficients for the linear regression model.
+
+    Returns:
+        float: The predicted value.
+    """
+    yhat = coefficients[0]
+    for i in range(len(row)-1):
+        yhat += coefficients[i + 1] * row[i]
+    return yhat
+
+def coefficients_stg(train, l_rate, n_epoch):
+    """
+    Calculate the coefficients for the stochastic gradient descent algorithm.
+
+    Parameters:
+    train (list): The training dataset.
+    l_rate (float): The learning rate.
+    n_epoch (int): The number of epochs.
+
+    Returns:
+    list: The calculated coefficients.
+
+    """
+    coef = [0.0 for i in range(len(train[0]))]
+    for epoch in range(n_epoch):
+        sum_error = 0
+        for row in train:
+            yhat = predict(row, coef)
+            error = yhat - row[-1]
+            sum_error += error**2
+            coef[0] = coef[0] - l_rate * error
+            for i in range(len(row)-1):
+                coef[i + 1] = coef[i + 1] - l_rate * error * row[i]
+        print(f">epoch={epoch}, lrate={l_rate}, error={sum_error}")
+    return coef

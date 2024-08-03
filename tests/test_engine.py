@@ -1,5 +1,5 @@
 from random import seed
-from ml.lib import load_csv, str_column_to_float
+from ml.lib import load_csv, str_column_to_float, normalize_dataset, dataset_minmax
 
 from ml.models import zero_rule_algorithm_classification
 from ml.models import zero_rule_algorithm_regression
@@ -45,3 +45,23 @@ def test_evaluate_linear_regression():
   split = 0.6
   rmse = simple_linear_regression_evaluate(dataset, split)
   assert rmse == 0.692820323027551
+
+def test_evaluate_linear_regression_stg_wine():
+  seed(1)
+  filename = "datasets/winequality-white.csv"
+  dataset = load_csv(filename)
+
+  for i in range(len(dataset[0])):
+    str_column_to_float(dataset, i)
+
+  # normalize
+  minmax = dataset_minmax(dataset)
+  normalize_dataset(dataset, minmax)
+
+  # evaluate algorithm
+  n_folds = 5
+  l_rate = 0.01
+  n_epoch = 50
+  scores = eval
+  
+  # run linear regression with dataset using stg with folds, learning rate and epochs

@@ -6,7 +6,7 @@ from ml.lib import rmse_metric
 from ml.lib import train_test_split
 from ml.lib import cross_validation_split
 from ml.lib import load_csv, str_column_to_float
-from ml.lib import mean, variance, covariance, coefficients
+from ml.lib import mean, variance, covariance, coefficients, coefficients_stg
 
 def test_rmse():
   actual = [0.1, 0.2, 0.3, 0.4, 0.5]
@@ -96,3 +96,10 @@ def test_covariance():
   mean_x, mean_y = mean(x), mean(y)
   covar = covariance(x, mean_x, y, mean_y)
   assert covar == 8.0, "covariance is 8.0"
+
+def test_coefficients_stg():
+  dataset = [[1, 1], [2, 3], [4, 3], [3, 2], [5, 5]]
+  l_rate = 0.001
+  n_epoch = 50
+  coef = coefficients_stg(dataset, l_rate, n_epoch)
+  assert coef == [0.22998234937311363, 0.8017220304137576]
